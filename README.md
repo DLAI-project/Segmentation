@@ -1,55 +1,20 @@
-# U-Net: Segmentation of Biomedical Images!% [![Cult Of Martians][cult-img]][cult]
+# U-Net: Segmentation of Biomedical Images!
 
+**Implementation and contributions to the U-Net network, a deep convolutional encoder-decoder trained to perform semantic-segmentation on biomedical images, in order to both distinguish whether there is a disease and localize the abnormal area.
 
-U-Net: Segmentation of Biomedical Images![](Segmentation\_of\_Biomedical\_Images.001.png)
+## Segmentation Problem
 
-Implementation and contributions to the U-Net network, a deep convolutional encoder- decoder trained to perform semantic segmentation on biomedical images, in order to both distinguish whether there is a disease and localize the abnormal area.
+‘Our ability to measure and alter biology far surpasses our ability to actually understand it’, writes Ed Regis in his renowned book What is life?, citing Brendan Frey, co-founder of the Canadian company Deep Genomics. We indeed know very little about the complexity of biological processes, compared to the accuracy we have achieved in observing and even engineering them. Imaging, synthesis and sequencing techniques can be used in perspective to build complex genetic circuits that replicate pre-programmed metabolic processes and to advance the diagnosis and treatment of many diseases poorly known today. 
 
-1Sapienza Università di Roma, Dipartimento di Informatica, Master Student
+The field of Computer Vision has largely benefited from the growing complexity of deep learning algorithms that have been developed in the last lustra. U-Net, whose architecture we have implemented, expanded and studied, exploits the potential of a convolutional encoder-decoder model to perform semantic segmentation. There are various levels of granularity in which the computers can gain an understanding of images. For each of these levels there is a problem defined in the Computer Vision domain. Starting from a coarse grained down to a more fine grained understanding, we can define the following list of segmentation problems, and describe each of them:
 
-2Sapienza Università di Roma, Dipartimento di Fisica, Master Student
+* Image Classification
+* Classification with Localization
+* Object Detection
+* Semantic Segmentation
+* Instance Segmentation
 
-2Sapienza Università di Roma, Dipartimento di Fisica, Master Student & Valerio Mannucci2
-
-Professor: Emanuele Rodolà
-
-Course: Deep Learning and Applied Artificial Intelligence
-
-This report describes the work carried out as final project of the course Deep Learning and Applied Artificial Intelligence . We are going to introduce the se- mantic image segmentation problem and its importance in biomedical imaging, and describe the features and performance of UNet, the convolutional network
-
-we studied and implemented to address semantic segmentation tasks.
-
-Introduction
-
-‘Our ability to measure and alter biology far surpasses our ability to actually understand it’, writes Ed Regis in his renowned book What is life?, citing Brendan Frey, co-founder of the Canadian company Deep Genomics. We indeed know very little about the complexity of biological processes, compared to the accuracy we have achieved in observing and even engineering them. Imaging, synthesis and sequencing techniques can be used in perspective
-
-to build complex genetic circuits that replicate pre-programmed metabolic processes [ ?], and to advance the diagnosis and treatment of many diseases poorly known today. State of the
-
-art is still far from this goal, but a lot of cutting edge research is being dedicated to inte- grating Engineering, Biology, Physics and Computer Science to better understand biological processes and analyze biomedical data.
-
-After briefly introducing both the segmentation problem in general, with a focus on the segmentation of biomedical images and its relevance in the firstsection, in the second section
-
-of the review, we will give a deeper insight into our work environment and its features. In the third section, we will describe the dataset used to train the network, the pre-processing steps we performed to uniform and analyze it, and the purpose and features of the data augmentation we implemented. In the fourth section, we will describe the architecture of the network, characterizing all the layers. As already mentioned, our network is based on U-Net, a fully connected convolutional network developed at the Computer Science Depart- ment of the University of Freiburg, Germany, but we will stress our personal contributions. Before ultimately presenting the performances of the network on two different datasets and summarizing the conclusions and outlook of the work recapped in this report, in the fifth section we will delineate the features of the scheduling of optimizations parameters and tuning of the hyperparameters .
-
-1 Theoretical Context![](Segmentation\_of\_Biomedical\_Images.001.png)
-
-1. Segmentation Problem
-
-The field of Computer Vision has largely benefited from the growing complexity of deep learning algorithms that have been developed in the last lustra. U-Net, whose architecture we have implemented, expanded and studied, exploits the potential of a convolutional encoder- decoder model to perform semantic segmentation . There are various levels of granularity in which the computers can gain an understanding of images. For each of these levels there
-
-is a problem defined in the Computer Vision domain. Starting from a coarse grained down to a more fine grained understanding, we can define the following list of segmentation problems, and describe each of them:
-
-1. Image Classification
-1. Classification with Localization
-1. Object Detection
-1. Semantic Segmentation
-1. Instance Segmentation
-
-Image classification is the most fundamental problem in Computer Vision, in which the algorithm takes as input a single image containing only one object, and is expected to output
-
-a discrete label that most accurately describes the image. One more step is needed if the algorithm is expected to perform classification with localization , where along with classifi- cation the object should be localized in a frame of reference defined considering the image boundary. Object detection takes image classification to the next level. It can be performed on images that contain more than one object, and classification and localization must be obtained for all of them. Further sophistication is introduced by semantic segmentation , namely labelling each pixel of an image with a corresponding class of what is being repre- sented. Unlike the previous ones, the output of a semantic segmentation algorithm is another image, typically the same size as the input, in which each pixel is classified to a particular class. The highest level of sophistication is obtained through instance segmentation , wherein along with semantic segmentation, the algorithm is expected to classify each instance of a class separately. For example, semantic segmentation of an image of a population of cells (being them cancer cells, differentiating stem cells or a culture in vitro), outputs an image
-
-the same size of the original, with the masks of the cells, as we will see in the next sections. Instance segmentation would further label each of the masks, for example outputting an image of the masks of the cells, each coloured in a different way, differentiating between the instances of the ‘ cells class’.
+Image classification is the most fundamental problem in Computer Vision, in which the algorithm takes as input a single image containing only one object, and is expected to output a discrete label that most accurately describes the image. One more step is needed if the algorithm is expected to perform classification with localization , where along with classifi- cation the object should be localized in a frame of reference defined considering the image boundary. Object detection takes image classification to the next level. It can be performed on images that contain more than one object, and classification and localization must be obtained for all of them. Further sophistication is introduced by semantic segmentation , namely labelling each pixel of an image with a corresponding class of what is being repre- sented. Unlike the previous ones, the output of a semantic segmentation algorithm is another image, typically the same size as the input, in which each pixel is classified to a particular class. The highest level of sophistication is obtained through instance segmentation , wherein along with semantic segmentation, the algorithm is expected to classify each instance of a class separately. For example, semantic segmentation of an image of a population of cells (being them cancer cells, differentiating stem cells or a culture in vitro), outputs an image the same size of the original, with the masks of the cells, as we will see in the next sections. Instance segmentation would further label each of the masks, for example outputting an image of the masks of the cells, each coloured in a different way, differentiating between the instances of the ‘ cells class’.
 
 2. Segmentation of biomedical images
 
@@ -264,17 +229,4 @@ As a personal observation, we would like to note the network’s ability to unde
 
 the output of our model.
 
-References![](Segmentation\_of\_Biomedical\_Images.001.png)
 
-1. https://www.kaggle.com/c/data-science-bowl-2018 . Kaggle, 2018 Data Science Bowl: Find the nuclei in divergent images to advance medical discovery
-1. Igor Rafael S. Valente, Edson Cavalcanti Neto, Victor Hugo C. Albuquerque. Automatic 3D pulmonary nodule detection in CT images: A survey . Computer Methods and Programs in Biomedicine, February 2016.
-1. Bin Yang, Junjie Yan et al. Convolutional Channel Features . ICCV paper, 2015.
-1. Olaf Ronneberger, Philipp Fischer, and Thomas Brox
-
-U-Net: Convolutional Networks for Biomedical Image Segmentation . arXiv, May 2015
-
-5. https://www.kaggle.com/andrewmvd/cancer-inst-segmentation-and-classification . Kaggle, 2020: Cancer Instance Segmentation and Classification 1
-PAGE14
-=======
-
->>>>>>> 35e7a8f8b19c7eeb51f9f0fce120f6d976cdf994
