@@ -44,7 +44,7 @@ The network has therefore a total of 27 convolutional layers. We thought of addi
 
 In our network, the loss function is computed by a pixel-wise binary cross entropy with logit:
 
-<img src="./img/formula" width="431" height="53" />
+<img src="./img/formula.png"/>
 
 Before identifying the BCE as the optimal loss function, we experimented training with Dice Loss.
 
