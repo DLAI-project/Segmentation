@@ -44,7 +44,7 @@ The network has therefore a total of 27 convolutional layers. We thought of addi
 
 In our network, the loss function is computed by a pixel-wise binary cross entropy with logit:
 
-<img src="http://www.sciweavers.org/tex2img.php?eq=%5Cmathcal%7BL%7D_%7Bp%7D%28y%29%3D-%5Cfrac%7B1%7D%7BN%7D%20%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20y_%7Bi%7D%20%5Clog%20%5Cleft%28%5Csigma%5Cleft%28x_%7Bi%7D%5Cright%29%5Cright%29%2B%5Cleft%281-y_%7Bi%7D%5Cright%29%20%5Clog%20%5Cleft%281-%5Csigma%5Cleft%28x_%7Bi%7D%5Cright%29%5Cright%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="\mathcal{L}_{p}(y)=-\frac{1}{N} \sum_{i=1}^{N} y_{i} \log \left(\sigma\left(x_{i}\right)\right)+\left(1-y_{i}\right) \log \left(1-\sigma\left(x_{i}\right)\right)" width="431" height="53" />
+<img src="./img/formula" width="431" height="53" />
 
 Before identifying the BCE as the optimal loss function, we experimented training with Dice Loss.
 
@@ -62,7 +62,7 @@ As we see from the graphics, the optimal network, namely those that reach the mi
 
 Once we identified the optimal neural network, we used it to segment different datasets from the one we used to train the network. We present in this section two examples of the performance of the network on these datasets.
 
-# Differentiating neural stem cells
+### Differentiating neural stem cells
 
 As a first application of our network, we segmented an image provided by the laboratory of IIT@Sapienza Center for Life Nano Science. The picture was taken with an epifluorescent microscope, and showed a population of fluorescing Neural Stem Cells differentiating and evolving in vitro. The dimensions of the image were 4704x6240.
 
@@ -72,7 +72,7 @@ We could finally obtain the segmentation of the image on the right of figure 5, 
 
 <img src="./img/Segmentation_of_Biomedical_Images.018.png" alt="Size Limit CLI" width="738">
 
-# Histological images of cancerous tissues
+### Histological images of cancerous tissues
 
 As a second application, we downloaded the dataset of a different Kaggle challenge. This dataset contained histological images of various cancerous tissues, from kidneys, to livers, to lungs and more. We show below the segmented images obtained through the network on this dataset.
 
