@@ -6,53 +6,22 @@
 
 ‘Our ability to measure and alter biology far surpasses our ability to actually understand it’, writes Ed Regis in his renowned book What is life?, citing Brendan Frey, co-founder of the Canadian company Deep Genomics. We indeed know very little about the complexity of biological processes, compared to the accuracy we have achieved in observing and even engineering them. Imaging, synthesis and sequencing techniques can be used in perspective to build complex genetic circuits that replicate pre-programmed metabolic processes and to advance the diagnosis and treatment of many diseases poorly known today. 
 
-The field of Computer Vision has largely benefited from the growing complexity of deep learning algorithms that have been developed in the last lustra. U-Net, whose architecture we have implemented, expanded and studied, exploits the potential of a convolutional encoder-decoder model to perform semantic segmentation. There are various levels of granularity in which the computers can gain an understanding of images. For each of these levels there is a problem defined in the Computer Vision domain. Starting from a coarse grained down to a more fine grained understanding, we can define the following list of segmentation problems, and describe each of them:
+Humans possess a great variety of sensory systems that diagnosticians can exploit to identify whether a certain medical disease is present in a patient or not. Automating this process in a robust and accountable way is still a very open challenge today. When a human observer views a scene, his or her visual system segments the scene semantically, and this feature can be used widely for diagnostic purposes. Automated visual analysis of biomedical images can prove itself as an extremely powerful tool to speed up the diagnostic process.
 
-* Image Classification
-* Classification with Localization
-* Object Detection
-* Semantic Segmentation
-* Instance Segmentation
+<p align="center">
+  <img src="./img/Segmentation_of_Biomedical_Images.002.png" align="right"
+     alt="Size Limit logo by Anton Lovchikov">
+</p>
 
-Image classification is the most fundamental problem in Computer Vision, in which the algorithm takes as input a single image containing only one object, and is expected to output a discrete label that most accurately describes the image. One more step is needed if the algorithm is expected to perform classification with localization , where along with classifi- cation the object should be localized in a frame of reference defined considering the image boundary. Object detection takes image classification to the next level. It can be performed on images that contain more than one object, and classification and localization must be obtained for all of them. Further sophistication is introduced by semantic segmentation , namely labelling each pixel of an image with a corresponding class of what is being repre- sented. Unlike the previous ones, the output of a semantic segmentation algorithm is another image, typically the same size as the input, in which each pixel is classified to a particular class. The highest level of sophistication is obtained through instance segmentation , wherein along with semantic segmentation, the algorithm is expected to classify each instance of a class separately. For example, semantic segmentation of an image of a population of cells (being them cancer cells, differentiating stem cells or a culture in vitro), outputs an image the same size of the original, with the masks of the cells, as we will see in the next sections. Instance segmentation would further label each of the masks, for example outputting an image of the masks of the cells, each coloured in a different way, differentiating between the instances of the ‘ cells class’.
+By marking the desired type of cells with a known dye, the cells nuclei can be spotted and photographed.
 
-2. Segmentation of biomedical images
+## Work Environment
 
-Humans possess a great variety of sensory systems that diagnosticians can exploit to identify whether a certain medical disease is present in a patient or not. Automating this process in a robust and accountable way is still a very open challenge today. When a human ob- server views a scene, his or her visual system segments the scene semantically, and this feature can be used widely for diagnostic purposes. Automated visual analysis of biomedical images![](Segmentation\_of\_Biomedical\_Images.001.png) can prove itself as an extremely powerful tool to speed up the diagnostic process.
+In order to train our network, we downloaded the nuclei images provided on the Kaggle website, as dataset for the 2018 Data Science Bowl: Find the nuclei in divergent images to advance medical discovery [\[1\].](#_page13_x70.87_y75.72). The dataset contained 670 segmented nuclei images. Since the images were acquired under a variety of conditions, namely different tissues and cell type, magnification, and imaging modality (brightfield vs. fluorescence). The dataset diversity was designed purposely to challenge an algorithm’s ability to generalize across these variations. Below, we give an example of the diversity of the images present in the dataset.
 
-By marking the desired type of cells with a known dye, the cells nuclei can be spotted and photographed. Subse-
-
-Figure 1: Pulmonary nodule quently identifying the nuclei through segmentation, allows researchers to identify each individual cell in a sample, and by![](Segmentation\_of\_Biomedical\_Images.002.png) measuring how cells react to various treatments, we can understand the underlying biological processes at work.
-
-In this section we briefly present as an example an image segmentation problem of great importance in biomedical
-
-data analysis, namely ‘ pulmonary nodule detection and seg- mentation for early diagnosis of lung cancer ’. Lung nod- ules are small masses of tissue in the lung, that appear as round, white shadows on a computerized-tomography
-
-1An imaging procedure that uses computer-processed combinations of many X-ray measurements taken from different angles to produce cross-sectional (tomographic) images (virtual ‘slices’ ) of the organ.
-
-1An imaging procedure that uses computer-processed combinations of many X-ray measurements taken from different angles to produce cross-sectional (tomographic) images (virtual ‘slices’ ) of the organ. as we see in figure [1.](#_page2_x70.87_y97.06) Lung nodules are usually 5 to 30 millimetres in size. A larger lung nodule, such as one
-
-that’s 30 millimeters or larger, is very likely to be cancerous, and segmentation of CT scans, as the one in figure 1 can identify these regions and automatically diagnose the presence of nodules. In section 6 we’ll see another application of our semantic segmentation network in biomedical research. We’re not going to focus on other applications of segmentation in this report, but its features are widely exploited in other relevant problems, such as autonomous vehicles driving, geological sensing and precision agriculture.
-
-2 Work Environment
-
-The network has been built on Google Colaboratory, a platform that enables us to execute code directly on the Cloud, whose interactivity is favoured by the Jupyter Notebooks style . The features of Colab that make it useful to build a convolutional network, are the interac- tion with the Drive and the hardware Google provides to Colab users. We can mount Google Drive on our Colab notebook, and all the documents saved in My Drive are mounted in a directory called my-drive, in the root of our file system. This feature proves to be useful when dealing with a large dataset to train the network.
-
-2Arguably the second leading framework for research in Deep Learning, and still the leading one in industry.
-
-2Arguably the second leading framework for research in Deep Learning, and still the leading one in industry.[.](#_page2_x80.83_y722.67) Despite these considerations, the GPU Cloud made available by Google to Colab users, was a powerful hardware for our purposes and has enabled us with enough speed in training our network.
-
-3 Dataset Analisys![](Segmentation\_of\_Biomedical\_Images.001.png)
-
-In order to train our network, we downloaded the nuclei images provided on the Kaggle website, as dataset for the 2018 Data Science Bowl: Find the nuclei in divergent images to advance medical discovery [\[1\].](#_page13_x70.87_y75.72) As explained on the website in bibliography, the dataset contained 670 segmented nuclei images. Since the images were acquired under a variety of conditions, namely different tissues and cell type, magnification, and imaging modality (brightfield vs. fluorescence). The dataset diversity was designed purposely to challenge an algorithm’s ability to generalize across these variations. Below, we give an example of the diversity of the images present in the dataset.
-
-![](Segmentation\_of\_Biomedical\_Images.003.png)![](Segmentation\_of\_Biomedical\_Images.004.png)
-
-(a) Instance 1 of 2018 DSB (b) Instance 2 of 2018 DSB
-
-![](Segmentation\_of\_Biomedical\_Images.005.png)![](Segmentation\_of\_Biomedical\_Images.006.png)
-
-(c) Instance 3 of 2018 DSB (d) Instance 4 of 2018 DSB
+<p align="center">
+  <img src="./img/article_1.png" alt="Size Limit CLI" width="738">
+</p>
 
 As mentioned, the dataset contained 670 couples of images, representing the instance files and the corresponding mask, or target image, namely the ground truth of the segmentation problem. The mask can be obtained by manual or automatic segmentation, but is supposed
 
