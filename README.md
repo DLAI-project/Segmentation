@@ -1,6 +1,6 @@
 # U-Net: Segmentation of Biomedical Images!
 
-** Implementation and contributions to the U-Net network, a deep convolutional encoder-decoder trained to perform semantic-segmentation on biomedical images, in order to both distinguish whether there is a disease and localize the abnormal area.
+**Implementation and contributions to the U-Net network, a deep convolutional encoder-decoder trained to perform semantic-segmentation on biomedical images, in order to both distinguish whether there is a disease and localize the abnormal area.**
 
 ## Segmentation Problem
 
